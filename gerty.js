@@ -3,6 +3,7 @@ const playBtn = document.getElementById('play-btn');
 const btnText = document.getElementById('btn-text');
 const progressBar = document.getElementById('progress-bar');
 const progressContainer = document.getElementById('progress-container');
+const nextBtn = document.getElementById('main-audio');
 
 const playlist = [
     { title: "1. intro (Template)", file: "Kid Cudi - Electrowavebaby.mp3" },
@@ -171,4 +172,5 @@ audio.addEventListener('timeupdate', () => {
         const progressPercent = (currentTime / duration) * 100;
         progressBar.style.width = `${progressPercent}%`;
     }
+
 });
