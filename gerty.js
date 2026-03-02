@@ -8,7 +8,8 @@ const progressContainer = document.getElementById('progress-container');
 const playlist = [
     { title: "1. intro (Template)", file: "Kid Cudi - Electrowavebaby.mp3" },
     { title: "2. Main vibe (Template)", file: "Kid Cudi feat Pharrell Williams, Travis Scott - At The Party (hitparad.fm).mp3" },
-    { title: "3. Outro (Template)", file: "LOOOVE.flac" },
+    { title: "3. Outro (Template)", file: "Kid_Cudi_Jaden_-_On_My_Own_65347943.mp3" },
+    {file:"Kid_Cudi_-_Maui_Wowie_80059228.mp3"},
 ];
 
 let currentTrackIndex = 0;
