@@ -204,39 +204,46 @@ z-index: 2;
     text-transform: uppercase;
 }
 @media screen and (max-width: 480px) {
-    /* Главный контейнер не должен быть шире экрана */
+    /* Убираем лишние отступы у всего экрана */
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
     .container {
-        width: 100% !important;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    /* Обложка: делаем её адаптивной */
-    .cover {
-        width: 80% !important; /* Чтобы оставались отступы по бокам */
-        max-width: 250px;
-        height: auto;
-        border-radius: 15px; /* Немного стиля в духе современного UI */
-    }
-
-    /* Список треков: убираем лишние отступы */
-    .tracklist {
-        width: 100% !important;
-        padding: 0 20px;
-        margin-top: 20px;
-    }
-
-    .track-item {
-        font-size: 14px;
-        margin-bottom: 10px;
-        text-align: left;
-    }
-
-    /* Соцсети: чтобы не вылезали за край */
-    .social-links {
         display: flex;
-        flex-wrap: wrap; /* Если не влезают в ряд, перенесутся на второй */
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px !important;
         gap: 10px;
     }
-}
+
+    /* Делаем обложку ГЛАВНОЙ */
+    .cover {
+        width: 85vw !important;
+        height: 85vw !important;
+        max-width: 320px;
+        object-fit: cover;
+        margin-bottom: 5px !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Добавил точку перед player-container */
+    .player-container {
+        width: 90% !important;
+        margin-top: 10px !important;
+        padding: 10px !important;
+    }
+
+    .tracklist {
+        margin: 15px 0 !important;
+        padding: 0 15px !important;
+    }
+
+    /* h1 теперь ВНУТРИ фигурных скобок медиа-запроса */
+    h1 {
+        font-size: 24px !important;
+        margin: 5px 0 !important;
+    }
+} /* Эта скобка должна быть ОДНА в самом конце */
