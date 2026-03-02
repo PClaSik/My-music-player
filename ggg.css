@@ -220,4 +220,29 @@ z-index: 2;
     .nav-symbol{
         font-size: 1.5rem;
     }
-}
+    .cover {
+        width: 100%;
+        max-width: 280px;
+        display: block;
+        margin: 0 auto 20px;
+    }
+
+    .tracklist {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .track-item {
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: #ccc;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+} /* Эта скобка закрывает всё мобильное меню */
+
