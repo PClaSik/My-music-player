@@ -29,9 +29,9 @@ playBtn.addEventListener('click', () => {
         playBtn.style.borderColor = "#00ff00";
     } else {
         audio.pause();
-        btnText.innerText = "PLAY";
+        btnText.innerText = "SEE YOU SPACE COWBOY...";
         playBtn.style.borderColor = "#fff";
-        document.getElementById('status').innerText="SEE YOU SPACE COWBOY...";
+        
     }
 });
 
