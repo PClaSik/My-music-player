@@ -204,62 +204,65 @@ z-index: 2;
     text-transform: uppercase;
 }
 @media screen and (max-width: 480px) {
-    /* Форсируем вертикальную колонку для всего тела сайта */
     body {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        justify-content: flex-start !important;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px 0;
+        padding-bottom: 40px !important; /* Даем место внизу */
     }
 
-    /* Контейнер с обложкой и кнопкой Listen */
-    .container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 100% !important;
-        margin-bottom: 20px !important;
-    }
-
+    /* 1. Обложка и заголовок */
     .cover {
         width: 80vw !important;
         height: 80vw !important;
-        max-width: 300px;
-        object-fit: cover;
-        margin-bottom: 15px !important;
+        margin-bottom: 20px !important;
     }
 
-    /* Список треков — теперь строго под обложкой */
+    h1 {
+        margin: 10px 0 !important;
+        font-size: 28px !important;
+    }
+
+    /* 2. Список треков (делаем четкие границы) */
     .tracklist {
-        display: flex !important;
-        flex-direction: column !important;
         width: 90% !important;
-        text-align: center !important;
         margin: 20px 0 !important;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 10px 0 !important;
     }
 
-    .track-item {
-        padding: 10px 0;
-        width: 100%;
-    }
-
-    /* Плеер — в самом низу очереди */
+    /* 3. Плеер (убираем наслоение) */
     .player-container {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        width: 90% !important;
+        width: 95% !important;
         margin-top: 20px !important;
+        background: rgba(0,0,0,0.2); /* Легкий фон, чтобы отделить от остального */
+        padding: 15px !important;
+        border-radius: 10px;
     }
 
-    .main-controls {
+    /* 4. СОЦСЕТИ (главный виновник наслоения) */
+    .social-links {
         display: flex !important;
-        flex-direction: row !important; /* Кнопки внутри плеера пусть остаются в ряд */
+        flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 30px;
+        gap: 15px !important;
+        margin-top: 30px !important;
+        width: 100% !important;
+        padding-bottom: 20px;
+    }
+
+    .social-links a {
+        font-size: 10px !important;
+        letter-spacing: 1px;
+    }
+
+    /* Чиним прогресс-бар и время */
+    .time-container {
+        display: flex;
+        justify-content: space-between;
         width: 100%;
+        margin-top: 5px;
+        font-size: 12px;
     }
 }
