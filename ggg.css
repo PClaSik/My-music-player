@@ -204,43 +204,62 @@ z-index: 2;
     text-transform: uppercase;
 }
 @media screen and (max-width: 480px) {
-    /* 1. Делаем так, чтобы всё шло сверху вниз */
+    /* Форсируем вертикальную колонку для всего тела сайта */
     body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 10px;
-        overflow-x: hidden;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px 0;
     }
 
-    /* 2. Обложка — теперь она будет сверху и по центру */
-    .cover {
-        width: 90vw !important; /* Почти вся ширина экрана */
-        height: 90vw !important;
-        max-width: 320px;
-        margin: 0 auto 20px !important;
-        display: block;
-    }
-
-    /* 3. Список песен — под обложкой */
-    .tracklist {
+    /* Контейнер с обложкой и кнопкой Listen */
+    .container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
         width: 100% !important;
-        text-align: center; /* Песни по центру */
         margin-bottom: 20px !important;
     }
 
-    /* 4. Сам плеер — в самом низу */
-    .player-container {
-        width: 100% !important;
-        position: relative; /* Чтобы не улетал за экран */
-        margin-top: 10px !important;
+    .cover {
+        width: 80vw !important;
+        height: 80vw !important;
+        max-width: 300px;
+        object-fit: cover;
+        margin-bottom: 15px !important;
     }
 
-    /* Кнопки управления тоже в ряд, но аккуратно */
+    /* Список треков — теперь строго под обложкой */
+    .tracklist {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 90% !important;
+        text-align: center !important;
+        margin: 20px 0 !important;
+    }
+
+    .track-item {
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    /* Плеер — в самом низу очереди */
+    .player-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 90% !important;
+        margin-top: 20px !important;
+    }
+
     .main-controls {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+        display: flex !important;
+        flex-direction: row !important; /* Кнопки внутри плеера пусть остаются в ряд */
+        justify-content: center !important;
+        gap: 30px;
+        width: 100%;
     }
 }
