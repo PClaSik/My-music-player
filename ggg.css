@@ -204,46 +204,43 @@ z-index: 2;
     text-transform: uppercase;
 }
 @media screen and (max-width: 480px) {
-    /* Убираем лишние отступы у всего экрана */
-    body, html {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-
-    .container {
+    /* 1. Делаем так, чтобы всё шло сверху вниз */
+    body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 20px !important;
-        gap: 10px;
+        justify-content: flex-start;
+        padding: 10px;
+        overflow-x: hidden;
     }
 
-    /* Делаем обложку ГЛАВНОЙ */
+    /* 2. Обложка — теперь она будет сверху и по центру */
     .cover {
-        width: 85vw !important;
-        height: 85vw !important;
+        width: 90vw !important; /* Почти вся ширина экрана */
+        height: 90vw !important;
         max-width: 320px;
-        object-fit: cover;
-        margin-bottom: 5px !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        margin: 0 auto 20px !important;
+        display: block;
     }
 
-    /* Добавил точку перед player-container */
-    .player-container {
-        width: 90% !important;
-        margin-top: 10px !important;
-        padding: 10px !important;
-    }
-
+    /* 3. Список песен — под обложкой */
     .tracklist {
-        margin: 15px 0 !important;
-        padding: 0 15px !important;
+        width: 100% !important;
+        text-align: center; /* Песни по центру */
+        margin-bottom: 20px !important;
     }
 
-    /* h1 теперь ВНУТРИ фигурных скобок медиа-запроса */
-    h1 {
-        font-size: 24px !important;
-        margin: 5px 0 !important;
+    /* 4. Сам плеер — в самом низу */
+    .player-container {
+        width: 100% !important;
+        position: relative; /* Чтобы не улетал за экран */
+        margin-top: 10px !important;
     }
-} /* Эта скобка должна быть ОДНА в самом конце */
+
+    /* Кнопки управления тоже в ряд, но аккуратно */
+    .main-controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+}
