@@ -13,7 +13,7 @@ const playlist = [
     {file:"Radiohead_-_Creep_74893500.mp3"},
     {file:"Kodak_Black_Travis_Scott_Offset_-_ZEZE_59805281.mp3"},
     {file:"Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3"},
-    {file:"Radiohead_-_Creep_74893500.mp3"},
+    {file:"Travis_Scott_-_Apple_Pie_48277104.mp3"},
     {file:"Radiohead_-_No_Surprises_79477227.mp3"},
 ];
 
