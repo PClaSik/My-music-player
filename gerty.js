@@ -182,4 +182,16 @@ audio.addEventListener('timeupdate', () => {
     }
 
 });
+if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: 'In My Mind',
+        artist: 'PClaSik',
+        album: 'Pharrell Tribute',
+        artwork: [
+            { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
+        ]
+    });
 
+    navigator.mediaSession.setActionHandler('play', () => { audio.play(); });
+    navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
+}
