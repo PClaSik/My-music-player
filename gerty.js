@@ -15,6 +15,7 @@ const playlist = [
     {file:"Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3"},
     {file:"Travis_Scott_-_Apple_Pie_48277104.mp3"},
     {file:"Radiohead_-_No_Surprises_79477227.mp3"},
+    {file:"Travis Scott Tame Impala Modern Jam Dracula Mas.m4a"},
 ];
 
 let currentTrackIndex = 0;
