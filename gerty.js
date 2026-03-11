@@ -31,7 +31,7 @@ function formatTime(time) {
 
 function loadTrack(index) {
     if (index >= 0 && index < playlist.length) {
-        audio.src = "songs/" + playlist[index].file;
+        audio.src =  playlist[index].file;
     }
 }
 
