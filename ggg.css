@@ -193,85 +193,104 @@ z-index: 2;
     text-transform: uppercase;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
     body {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        min-height: 100dvh !important;
-        height: auto !important;
-        padding: 15px 10px !important;
+        min-height: 100vh !important;
+        height: 100vh !important;
+        padding: 20px 15px !important;
         box-sizing: border-box;
         overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
 
-    }
-    /* 1. Обложка и заголовок */
-    .cover {
-        width: 100% !important;
-        max-width: 300px !important;
-        height: auto !important;
-        margin-bottom: 10px !important;
-
-    }
-    h1 {
-        margin: 5px 0 !important;
-        font-size: 22px !important;
     }
     
     .container {
-        margin-bottom: 10px !important;
+        width: 100% !important;
+        max-width: 400px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* 1. Обложка и заголовок */
+    .cover {
+        width: 100% !important;
+        max-width: 350px !important;
+        height: auto !important;
+        margin-bottom: 15px !important;
+
+    }
+    h1 {
+        margin: 8px 0 !important;
+        font-size: 28px !important;
     }
     
     p {
-        margin: 5px 0 !important;
+        margin: 8px 0 !important;
+        font-size: 16px !important;
     }
     
     .btn {
-        padding: 8px 20px !important;
-        font-size: 0.8rem !important;
-        margin-top: 10px !important;
+        padding: 14px 35px !important;
+        font-size: 1rem !important;
+        margin-top: 15px !important;
     }
     /* 2. Список треков */
 
     .tracklist {
-        width: 90% !important;
-        margin: 10px 0 !important;
+        width: 100% !important;
+        margin: 15px 0 !important;
         border-top: 1px solid rgba(255,255,255,0.1);
         border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding: 8px 0 !important;
-        font-size: 14px !important;
+        padding: 12px 0 !important;
+        font-size: 16px !important;
 
     }
 
-    /* 3. Плеер */
+    /* 3. Плеер - делаем больше */
 
     .player-container {
-        width: 95% !important;
-        margin-top: 10px !important;
-        margin-bottom: 10px !important;
-        background: rgba(0,0,0,0.2);
-        padding: 10px !important;
-        border-radius: 12px;
+        width: 100% !important;
+        max-width: 400px !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+        background: rgba(0,0,0,0.3);
+        padding: 20px 15px !important;
+        border-radius: 15px;
 
     }
     
     .main-controls {
-        gap: 15px !important;
+        gap: 40px !important;
     }
     
     .play-button {
-        width: 100px !important;
-        height: 40px !important;
+        width: 160px !important;
+        height: 60px !important;
     }
     
     .play-button span {
-        font-size: 0.7rem !important;
-        letter-spacing: 3px !important;
+        font-size: 1rem !important;
+        letter-spacing: 4px !important;
     }
     
     .nav-symbol {
-        font-size: 24px !important;
+        font-size: 36px !important;
+    }
+
+    /* Прогресс бар больше */
+    .progress-container {
+        height: 14px !important;
+        margin-top: 20px !important;
+    }
+    
+    .time-container {
+        font-size: 16px !important;
+        margin-top: 8px;
     }
 
     /* 4. СОЦСЕТИ */
@@ -280,32 +299,19 @@ z-index: 2;
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 15px !important;
-        margin-top: 10px !important;
+        gap: 20px !important;
+        margin-top: 20px !important;
         width: 100% !important;
         padding-bottom: env(safe-area-inset-bottom);
         position: relative !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 15px !important;
 
     }
 
     .social-links a {
-        font-size: 10px !important;
-        opacity: 0.7;
-        padding: 5px;
+        font-size: 12px !important;
+        opacity: 0.8;
+        padding: 8px;
 
-    }
-    /* Чиним прогресс-бар и время */
-    .time-container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 5px;
-        font-size: 12px;
-
-    }
-    
-    .progress-container {
-        margin-top: 10px !important;
     }
 }
