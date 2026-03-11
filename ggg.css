@@ -169,73 +169,59 @@ z-index: 2;
 }
 
 @media screen and (max-width: 480px) {
-    body {
+   body {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        padding-top: 10px !important ;
-        padding-bottom: 60px !important; /* Даем место внизу */
+        height: auto !important; /* Позволяем странице прокручиваться */
+        padding-top: 20px !important;
+        padding-bottom: 40px !important;
     }
 
-    /* 1. Обложка и заголовок */
+    /* 1. ОБЛОЖКА (Теперь не обрезается) */
     .cover {
-        width: 80vw !important;
-        height: 80vw !important;
-        object-fit: cover;
-        max-width: 320px;
-        margin-bottom: 15px !important;
+        width: 85vw !important;        /* Ширина почти на весь экран */
+        height: auto !important;       /* Высота подстроится сама под картинку */
+        max-height: 40vh !important;   /* Но не больше 40% экрана, чтобы не вылезла вниз */
+        object-fit: contain !important; /* ГЛАВНОЕ: картинка впишется ЦЕЛИКОМ */
+        margin-bottom: 10px !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
     }
 
     h1 {
+        font-size: 22px !important;
         margin: 10px 0 !important;
-        font-size: 28px !important;
+        letter-spacing: 3px !important;
     }
 
-    /* 2. Список треков (делаем четкие границы) */
+    /* 2. ТРЕКЛИСТ */
     .tracklist {
         width: 90% !important;
-        margin: 15px 0 !important;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding: 10px 0 !important;
+        margin: 10px 0 !important;
     }
 
-    /* 3. Плеер (убираем наслоение) */
+    /* 3. ПЛЕЕР */
     .player-container {
-        width: 95% !important;
-        margin-top: 20px !important;
-        margin-bottom: 40px !important;
-        background: rgba(0,0,0,0.2); /* Легкий фон, чтобы отделить от остального */
-        padding: 15px !important;
-        border-radius: 12px;
+        width: 90% !important;
+        margin-top: 10px !important;
+        margin-bottom: 30px !important;
     }
 
-    /* 4. СОЦСЕТИ (главный виновник наслоения) */
+    /* 4. СОЦСЕТИ (Теперь не мешают кнопкам) */
     .social-links {
-        position: relative !important;
+        position: relative !important; /* Убираем fixed, чтобы не липли к кнопкам */
         bottom: 0 !important;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 30px !important;
-        margin-top: 60px !important;
+        margin-top: 50px !important;   /* Отодвигаем далеко вниз от плеера */
         width: 100% !important;
-        padding-bottom: 40px !important; 
+        display: flex !important;
+        justify-content: center !important;
+        gap: 25px !important;
+        padding-bottom: 20px !important;
     }
 
     .social-links a {
         font-size: 12px !important;
+        padding: 10px !important;      /* Увеличиваем зону клика для пальца */
         opacity: 0.6;
-        padding: 15px !important;
-        text-transform: uppercase;
-    }
-
-    /* Чиним прогресс-бар и время */
-    .time-container {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: 5px;
-        font-size: 12px;
     }
 }
