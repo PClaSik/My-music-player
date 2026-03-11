@@ -50,6 +50,19 @@ if (listenBtn) {
     });
 }
 
+// Обработчики кликов на треки в плейлисте
+document.querySelectorAll('.track-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+        if (index < playlist.length) {
+            currentTrackIndex = index;
+            loadTrack(currentTrackIndex);
+            audio.play();
+            btnText.innerText = "PAUSE";
+            playBtn.style.borderColor = "#00ff00";
+        }
+    });
+});
+
 playBtn.addEventListener('click', () => {
     if (audio.paused) {
         audio.play();
