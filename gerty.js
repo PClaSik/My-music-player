@@ -3,32 +3,79 @@ const playBtn = document.getElementById('play-btn');
 const btnText = document.getElementById('btn-text');
 const progressBar = document.getElementById('progress-bar');
 const progressContainer = document.getElementById('progress-container');
-
+const currentTimeEl = document.getElementById('current-time');
+const durationEl = document.getElementById('duration');
 
 const playlist = [
     { title: "1. intro (Template)", file: "Kid Cudi - Electrowavebaby.mp3" },
     { title: "2. Main vibe (Template)", file: "Kid Cudi feat Pharrell Williams, Travis Scott - At The Party (hitparad.fm).mp3" },
     { title: "3. Outro (Template)", file: "Kid_Cudi_Jaden_-_On_My_Own_65347943.mp3" },
-    {file:"Kid_Cudi_-_Maui_Wowie_80059228.mp3"},
-    {file:"Radiohead_-_Creep_74893500.mp3"},
-    {file:"Kodak_Black_Travis_Scott_Offset_-_ZEZE_59805281.mp3"},
-    {file:"Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3"},
-    {file:"Travis_Scott_-_Apple_Pie_48277104.mp3"},
-    {file:"Radiohead_-_No_Surprises_79477227.mp3"},
-    {file:"Travis Scott Tame Impala Modern Jam Dracula Mas.m4a"},
+    { title: "Maui Wowie", file: "Kid_Cudi_-_Maui_Wowie_80059228.mp3" },
+    { title: "Creep", file: "Radiohead_-_Creep_74893500.mp3" },
+    { title: "ZEZE", file: "Kodak_Black_Travis_Scott_Offset_-_ZEZE_59805281.mp3" },
+    { title: "3500", file: "Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3" },
+    { title: "Apple Pie", file: "Travis_Scott_-_Apple_Pie_48277104.mp3" },
+    { title: "No Surprises", file: "Radiohead_-_No_Surprises_79477227.mp3" },
+    { title: "Modern Jam", file: "Travis Scott Tame Impala Modern Jam Dracula Mas.m4a" } // Твой m4a файл
 ];
 
 let currentTrackIndex = 0;
 
+// Функция для форматирования времени
+function formatTime(time) {
+    if (isNaN(time)) return "0:00";
+    const min = Math.floor(time / 60);
+    const sec = Math.floor(time % 60);
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+}
+
+// 1. УНИВЕРСАЛЬНАЯ ЗАГРУЗКА ТРЕКА
 function loadTrack(index) {
     if (index >= 0 && index < playlist.length) {
-        audio.src = playlist[index].file;
+        const track = playlist[index];
+        // Убедись, что путь к папке правильный (например, songs/)
+        audio.src = `songs/${track.file}`; 
+        
+        // Обновляем метаданные в шторке iPhone
+        updateMediaSession(track);
     }
 }
 
-// Загружаем первую песню при старте
+// 2. ОБНОВЛЕНИЕ ШТОРКИ (Media Session)
+function updateMediaSession(track) {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: track.title || track.file,
+            artist: 'PClaSik',
+            album: 'Pharrell Tribute',
+            artwork: [
+                { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
+            ]
+        });
+
+        // Добавляем обработчики кнопок в шторке
+        navigator.mediaSession.setActionHandler('play', () => audio.play());
+        navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+        navigator.mediaSession.setActionHandler('nexttrack', () => document.getElementById('next-btn').click());
+        navigator.mediaSession.setActionHandler('previoustrack', () => document.getElementById('prev-btn').click());
+    }
+}
+
+// 3. ФУНКЦИЯ ДЛЯ ПЕРЕМОТКИ В ШТОРКЕ (Таймлайн)
+function updatePositionState() {
+    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+        navigator.mediaSession.setPositionState({
+            duration: audio.duration || 0,
+            playbackRate: audio.playbackRate,
+            position: audio.currentTime || 0
+        });
+    }
+}
+
+// Загружаем первый трек
 loadTrack(currentTrackIndex);
 
+// УПРАВЛЕНИЕ PLAY/PAUSE
 playBtn.addEventListener('click', () => {
     if (audio.paused) {
         audio.play();
@@ -38,160 +85,51 @@ playBtn.addEventListener('click', () => {
         audio.pause();
         btnText.innerText = "SEE YOU SPACE COWBOY...";
         playBtn.style.borderColor = "#fff";
-        
     }
 });
 
-// This event fires while music is playing
-audio.ontimeupdate = () => {
-    if (audio.duration && !isNaN(audio.duration)) {
-        const percentage = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = percentage + "%";
+// ОБНОВЛЕНИЕ ПРОГРЕССА И ВРЕМЕНИ
+audio.addEventListener('timeupdate', () => {
+    const { duration, currentTime } = audio;
+    currentTimeEl.innerText = formatTime(currentTime);
+    
+    if (duration) {
+        durationEl.innerText = formatTime(duration);
+        const progressPercent = (currentTime / duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        
+        // Синхронизируем таймер в шторке iPhone
+        updatePositionState();
     }
-};
+});
 
-// Кнопка ВПЕРЕД
+// КНОПКА ВПЕРЕД
 document.getElementById('next-btn').addEventListener('click', () => {
-    currentTrackIndex++;
-    
-    // Если дошли до конца — прыгаем в начало
-    if (currentTrackIndex >= playlist.length) {
-        currentTrackIndex = 0;
-    }
-    
+    currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
     loadTrack(currentTrackIndex);
     audio.play();
     btnText.innerText = "PAUSE";
 });
 
-// Кнопка НАЗАД
+// КНОПКА НАЗАД
 document.getElementById('prev-btn').addEventListener('click', () => {
-    currentTrackIndex--;
-    
-    // Если ушли за начало — прыгаем в самый конец
-    if (currentTrackIndex < 0) {
-        currentTrackIndex = playlist.length - 1;
-    }
-    
+    currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
     loadTrack(currentTrackIndex);
     audio.play();
     btnText.innerText = "PAUSE";
 });
 
-// Автопереключение на следующий трек
-audio.addEventListener('ended', () => {
-    document.getElementById('next-btn').click();
-});
-audio.addEventListener('timeupdate',()=>{
-    const { duration, currentTime}=audio;
-    if(duration){
-    const progressPercent=(correntTime/duration)*100;
-    peogressBar.style.width=`${progressPercent}%`;
-    }
-});
-progressContainer.addEventListener('click', function(e) {
-    const width = this.clientWidth;
-    const clickX = e.offsetX;
-    const duration = audio.duration;
-if(duration){
-    audio.currentTime = (clickX / width) * audio.duration;
-    console.log("Перемотка на: " + setTime); // Проверим в консоли (F12)
-}
-});
-function playSmoothly() {
-    audio.volume = 0; // Начинаем с тишины
-    audio.play();
-    
-    // Постепенно увеличиваем громкость до 1.0 за 500мс
-    let fadeIn = setInterval(() => {
-        if (audio.volume < 0.9) {
-            audio.volume += 0.1;
-        } else {
-            audio.volume = 1;
-            clearInterval(fadeIn);
-        }
-    }, 50); 
-}
-let isMouseDown = false;
-
-// 1. Зажали мышь — фиксируем это
-progressContainer.onmousedown = (e) => {
-    isMouseDown = true;
-    rewind(e); // Сразу прыгаем в место клика
-};
-
-// 2. Отпустили мышь — вот ТУТ окончательно ставим время песни
-window.onmouseup = (e) => {
-    if (isMouseDown) {
-        isMouseDown = false;
-        // Можно добавить плавное появление звука здесь, если хочешь
-    }
-};
-
-// 3. Двигаем мышь
-window.onmousemove = (e) => {
-    if (isMouseDown) {
-        // Вычисляем положение относительно контейнера
-        const rect = progressContainer.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let width = rect.width;
-        
-        // Ограничиваем, чтобы не вылетало за границы (0-100%)
-        if (x < 0) x = 0;
-        if (x > width) x = width;
-
-        const progressPercent = (x / width) * 100;
-        progressBar.style.width = `${progressPercent}%`; // Меняем ТОЛЬКО визуально
-
-        // Если хочешь, чтобы звук ВСЕ-ТАКИ шел, но не тупил, 
-        // можно обновлять currentTime не каждое движение, а через раз.
-        // Но лучше обновлять его в функции rewind ниже.
-    }
-};
-
-function rewind(e) {
+// ПЕРЕМОТКА ПО КЛИКУ
+progressContainer.addEventListener('click', (e) => {
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
     const duration = audio.duration;
     if (duration) {
         audio.currentTime = (clickX / width) * duration;
     }
-}
-const currentTimeEl = document.getElementById('current-time');
-const durationEl = document.getElementById('duration');
-
-// Функция для форматирования времени (секунды -> 0:00)
-function formatTime(time) {
-    const min = Math.floor(time / 60);
-    const sec = Math.floor(time % 60);
-    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-}
-
-// Обновляем время вместе с полоской прогресса
-audio.addEventListener('timeupdate', () => {
-    const { duration, currentTime } = audio;
-    
-    // Обновляем текст текущего времени
-    currentTimeEl.innerText = formatTime(currentTime);
-    
-    // Обновляем общую длительность (только когда она загрузится)
-    if (duration) {
-        durationEl.innerText = formatTime(duration);
-        const progressPercent = (currentTime / duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-    }
-
 });
-if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-        title: 'In My Mind',
-        artist: 'PClaSik',
-        album: 'Pharrell Tribute',
-        artwork: [
-            { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
-        ]
-    });
 
-    navigator.mediaSession.setActionHandler('play', () => { audio.play(); });
-    navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
-}
+// АВТОМАТИЧЕСКИЙ ПЕРЕХОД К СЛЕДУЮЩЕМУ ТРЕКУ
+audio.addEventListener('ended', () => {
+    document.getElementById('next-btn').click();
+});
