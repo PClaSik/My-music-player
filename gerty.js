@@ -1,4 +1,4 @@
-
+const currentTrackName = document.getElementById('current-track-name');
  const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
 const btnText = document.getElementById('btn-text');
@@ -8,16 +8,16 @@ const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 
 const playlist = [
-    { title: "1. intro (Template)", file: "Kid Cudi - Electrowavebaby.mp3" },
-    { title: "2. Main vibe (Template)", file: "Kid Cudi feat Pharrell Williams, Travis Scott - At The Party (hitparad.fm).mp3" },
-    { title: "3. Outro (Template)", file: "Kid_Cudi_Jaden_-_On_My_Own_65347943.mp3" },
-    {file:"Kid_Cudi_-_Maui_Wowie_80059228.mp3"},
-    {file:"Radiohead_-_Creep_74893500.mp3"},
-    {file:"Kodak_Black_Travis_Scott_Offset_-_ZEZE_59805281.mp3"},
-    {file:"Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3"},
-    {file:"Travis_Scott_-_Apple_Pie_48277104.mp3"},
-    {file:"Radiohead_-_No_Surprises_79477227.mp3"},
-    {file:"Travis Scott Tame Impala Modern Jam Dracula Mas (online-audio-converter.com).mp3"},
+    { title: "Kid Cudi - Electrowavebaby", file: "Kid Cudi - Electrowavebaby.mp3" },
+    { title: "Kid Cudi ft. Travis Scott - At The Party", file: "Kid Cudi feat Pharrell Williams, Travis Scott - At The Party (hitparad.fm).mp3" },
+    { title: "Kid Cudi & Jaden - On My Own", file: "Kid_Cudi_Jaden_-_On_My_Own_65347943.mp3" },
+    { title: "Kid Cudi - Maui Wowie", file: "Kid_Cudi_-_Maui_Wowie_80059228.mp3" },
+    { title: "Radiohead - Creep", file: "Radiohead_-_Creep_74893500.mp3" },
+    { title: "Kodak Black ft. Travis Scott - ZEZE", file: "Kodak_Black_Travis_Scott_Offset_-_ZEZE_59805281.mp3" },
+    { title: "Travis Scott - 3500", file: "Travis_Scott_-_3500_feat_Future_2_Chainz_80324989.mp3" },
+    { title: "Travis Scott - Apple Pie", file: "Travis_Scott_-_Apple_Pie_48277104.mp3" },
+    { title: "Radiohead - No Surprises", file: "Radiohead_-_No_Surprises_79477227.mp3" },
+    { title: "Travis Scott - Modern Jam (Remix)", file: "Travis Scott Tame Impala Modern Jam Dracula Mas (online-audio-converter.com).mp3" },
 ];
 
 let currentTrackIndex = 0;
@@ -28,10 +28,34 @@ function formatTime(time) {
     const sec = Math.floor(time % 60);
     return `${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
-
 function loadTrack(index) {
     if (index >= 0 && index < playlist.length) {
         audio.src = playlist[index].file;
+        const trackTitleDisplay = document.getElementById('current-track-name');
+        if (trackTitleDisplay) {
+            trackTitleDisplay.innerText = playlist[index].title;
+        }
+        // Проверяем, существует ли функция обновления, прежде чем её вызвать
+        if (typeof updateMetadata === "function") {
+            updateMetadata();
+        }
+    }
+}
+
+function updateMetadata() {
+    if ('mediaSession' in navigator) {
+        const track = playlist[currentTrackIndex];
+        // Проверка: если в массиве нет title, берем file
+        const trackTitle = track.title ? track.title : track.file;
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: trackTitle,
+            artist: 'PClaSik',
+            album: 'My Playlist',
+            artwork: [
+                { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
+            ]
+        });
     }
 }
 
@@ -163,19 +187,22 @@ function rewind(e) {
         audio.currentTime = (clickX / width) * duration;
     }
 }
-
-// Media Session API для управления с блокировки экрана
 if ('mediaSession' in navigator) {
-    navigator.mediaSession.metadata = new MediaMetadata({
-        title: 'In My Mind',
-        artist: 'PClaSik',
-        album: 'Pharrell Tribute',
-        artwork: [
-            { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
-        ]
+    // Эта часть отвечает за кнопки Play/Pause
+    navigator.mediaSession.setActionHandler('play', () => { 
+        audio.play(); 
+        btnText.innerText = "PAUSE";
+    });
+    navigator.mediaSession.setActionHandler('pause', () => { 
+        audio.pause(); 
+        btnText.innerText = "SEE YOU SPACE COWBOY...";
     });
 
-    navigator.mediaSession.setActionHandler('play', () => { audio.play(); });
-    navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
+    // А эти две строчки активируют стрелочки "Вперед" и "Назад" в шторке
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+        document.getElementById('next-btn').click();
+    });
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+        document.getElementById('prev-btn').click();
+    });
 }
-
