@@ -315,3 +315,23 @@ z-index: 2;
 
     }
 }
+.cover {
+    transition: transform 0.4 ease, box-shadow 0.4 ease !important;
+     cursor: pointer;
+}
+.cover:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(0,225,225,0.3);
+}
+.nav-symbol, play-button:active{
+transform: scale(0.9);
+filter: brightness(1.5);
+}
+.social-links a{
+    transform: opacity 0.3 ease, transform 0.3 ease !important;
+}
+.social-links a:hover {
+    opacity: 1 !important;
+    transform: translateY(-3px);
+    color: #00ffff !important;
+}
