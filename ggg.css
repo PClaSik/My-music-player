@@ -3,6 +3,7 @@
 }
 
 body {
+ background: radial-gradient(circle, #1a1a1a 0%, #000000 100%);
 margin: 0;
 padding: 0;
 background-color: #03232bd8;
@@ -343,4 +344,45 @@ filter: brightness(1.5);
 
 .fade-in {
     animation: fadeIn 0.6s ease-out;
+}
+/* Настройки специально для ПК (экраны шире 768px) */
+/* Настройки специально для ПК (экраны шире 768px) */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        overflow: hidden; /* Чтобы ничего не дергалось */
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row; /* Выстраиваем в ряд: обложка слева, инфа справа */
+        align-items: flex-start;
+        gap: 50px; /* Расстояние между колонками */
+        max-width: 900px;
+        width: 95%;
+        padding: 40px;
+        background: rgba(0, 0, 0, 0.6); /* Легкий фон для солидности */
+        border: 1px solid #00ffff55;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .cover {
+        width: 350px !important; /* Увеличиваем кавер на ПК */
+        height: 350px !important;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    }
+
+    /* Правая часть с текстом и кнопками */
+    .info-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
