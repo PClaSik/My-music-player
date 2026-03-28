@@ -4,57 +4,51 @@
     <meta charset="UTF-8">
     <title>Promo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="ggg.css">
+    <link rel="stylesheet" href="ggg.css">
 </head>
 <body>
 
-    <div class="container">
-        <img src="cover.jpg" alt="Обложка альбома" class="cover">
-        <div class="info-section"> </div>
-        <h1>In My Mind</h1>
-        <p>PClaSik</p>
-        
-        <button class="btn">LISTEN</button>
-    </div>
-    <div class="tracklist"> 
-        <h2 id="current-track-name" style="color: #ff1e00; font-size: 1.2rem; margin-bottom: 10px;">Select a track</h2>
-        <div class="track-item">1. intro (Template)</div>
-        <div class="track-item">2. Main vibe (Template)</div>
-        <div class="track-item">3. Outro (Template)</div>
+    <div class="container fade-in"> <img src="cover.jpg" alt="Обложка альбома" class="cover">
 
-    </div>
-<audio id="main-audio" src="Kid Cudi - Electrowavebaby.mp3">
-    
-</audio>
+        <div class="info-section">
+            <h1>In My Mind</h1>
+            <p>PClaSik</p>
+            <button class="btn">LISTEN</button>
 
+            <div class="tracklist"> 
+                <h2 id="current-track-name" style="color: #cc1407fa; font-size: 1.2rem; margin-bottom: 10px;">Select a track</h2>
+                <div class="track-item">1. intro (Template)</div>
+                <div class="track-item">2. Main vibe (Template)</div>
+                <div class="track-item">3. Outro (Template)</div>
+            </div>
 
-<div class="player-container">
-    <div class="main-controls">
-<button id="prev-btn" class="nav-symbol"><<</button>
+            <div class="player-container">
+                <div class="main-controls">
+                    <button id="prev-btn" class="nav-symbol">&lt;&lt;</button>
+                    <div id="play-btn" class="play-button">
+                        <span id="btn-text">PLAY</span>
+                    </div>
+                    <button id="next-btn" class="nav-symbol">&gt;&gt;</button>
+                </div>
 
-<div id="play-btn" class="play-button">
-    <span id="btn-text">PLAY</span>
-</div>
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <div class="time-container">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
 
-<button id="next-btn" class="nav-symbol">>></button>
-    </div>
-
-<div class="progress-container" id="progress-container">
-    <div class="progress-bar" id="progress-bar"></div>
-</div>
-<div class="time-container">
-    <span id="current-time">0:00</span>
-    <span id="duration">0:00</span>
-</div>
-<footer class="social-links">
-    <a href="#" target="_blank">INSTAGRAM</a>
-    <a href="#" target="_blank">SOUNDCLOUD</a>
-    <a href="#" target="_blank">SPOTIFY</a>
-    <a href="#" target="_blank">TELEGRAM</a>
-</footer>
-<script src="gerty.js"></script>
-    
+            <footer class="social-links">
+                <a href="#" target="_blank">INSTAGRAM</a>
+                <a href="#" target="_blank">SOUNDCLOUD</a>
+                <a href="#" target="_blank">SPOTIFY</a>
+                <a href="#" target="_blank">TELEGRAM</a>
+            </footer>
+        </div> </div> <audio id="main-audio" src="Kid Cudi - Electrowavebaby.mp3"></audio>
+    <script src="gerty.js"></script>
 
 </body>
 </html>
-
