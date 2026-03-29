@@ -84,6 +84,23 @@ function updateMetadata() {
 loadTrack(currentTrackIndex);
 populateTracklist();
 
+// Кнопка LISTEN (toggle play/pause)
+const listenBtn = document.querySelector('.btn');
+if (listenBtn) {
+    listenBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            btnText.textContent = "PAUSE";
+            playBtn.style.borderColor = "#00ff00";
+        } else {
+            audio.pause();
+            btnText.textContent = "PAUSE";
+            playBtn.style.borderColor = "#fff";
+        }
+    });
+}
+
+
 
 
 
@@ -127,7 +144,7 @@ document.getElementById('next-btn').addEventListener('click', () => {
     }
     loadTrack(currentTrackIndex);
     audio.play();
-    btnText.innerText = "PAUSE";
+    btnText.textContent = "PAUSE";
 });
 
 // Кнопка НАЗАД
