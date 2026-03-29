@@ -85,21 +85,7 @@ loadTrack(currentTrackIndex);
 populateTracklist();
 
 
-// Кнопка LISTEN (запуск плеера)
-const listenBtn = document.querySelector('.btn');
-if (listenBtn) {
-    listenBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            btnText.textContent = "PAUSE";
-            playBtn.style.borderColor = "#00ff00";
-        } else {
-            audio.pause();
-            btnText.textContent = "PAUSE";
-            playBtn.style.borderColor = "#fff";
-        }
-    });
-}
+
 
 
 
@@ -107,14 +93,15 @@ if (listenBtn) {
 playBtn.addEventListener('click', () => {
     if (audio.paused) {
         audio.play();
-        btnText.innerText = "PAUSE";
-            playBtn.style.borderColor = "#00ff00";
-        } else {
-            audio.pause();
-            btnText.textContent = "PAUSE";
-            playBtn.style.borderColor = "#fff";
-        }
-    });
+        btnText.textContent = "PAUSE";
+        playBtn.style.borderColor = "#00ff00";
+    } else {
+        audio.pause();
+        btnText.textContent = "PAUSE";
+        playBtn.style.borderColor = "#fff";
+    }
+});
+
 
 
 // Обновляем время вместе с полоской прогресса
