@@ -22,6 +22,27 @@ const playlist = [
 
 let currentTrackIndex = 0;
 
+function populateTracklist() {
+  const tracklist = document.querySelector('.tracklist');
+  if (tracklist) {
+    tracklist.innerHTML = '<h2 id="current-track-name">Select a track</h2>';
+    playlist.forEach((track, index) => {
+      const trackItem = document.createElement('div');
+      trackItem.className = 'track-item';
+      trackItem.textContent = `${index + 1}. ${track.title}`;
+      trackItem.addEventListener('click', () => {
+        currentTrackIndex = index;
+        loadTrack(currentTrackIndex);
+        audio.play();
+        btnText.textContent = "PAUSE";
+        playBtn.style.borderColor = "#00ff00";
+      });
+      tracklist.appendChild(trackItem);
+    });
+  }
+}
+
+
 // Функция для форматирования времени (секунды -> 0:00)
 function formatTime(time) {
     const min = Math.floor(time / 60);
@@ -53,7 +74,7 @@ function updateMetadata() {
             artist: 'PClaSik',
             album: 'My Playlist',
             artwork: [
-                { src: 'https://pclasik.github.io/My-music-player/cover.jpg', sizes: '512x512', type: 'image/jpg' }
+                { src: 'cover.jpg', sizes: '512x512', type: 'image/jpg' }
             ]
         });
     }
@@ -61,6 +82,8 @@ function updateMetadata() {
 
 // Загружаем первую песню при старте
 loadTrack(currentTrackIndex);
+populateTracklist();
+
 
 // Кнопка LISTEN (запуск плеера)
 const listenBtn = document.querySelector('.btn');
@@ -68,36 +91,31 @@ if (listenBtn) {
     listenBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
-            btnText.innerText = "PAUSE";
+            btnText.textContent = "PAUSE";
             playBtn.style.borderColor = "#00ff00";
+        } else {
+            audio.pause();
+            btnText.textContent = "PAUSE";
+            playBtn.style.borderColor = "#fff";
         }
     });
 }
 
-// Обработчики кликов на треки в плейлисте
-document.querySelectorAll('.track-item').forEach((item, index) => {
-    item.addEventListener('click', () => {
-        if (index < playlist.length) {
-            currentTrackIndex = index;
-            loadTrack(currentTrackIndex);
-            audio.play();
-            btnText.innerText = "PAUSE";
-            playBtn.style.borderColor = "#00ff00";
-        }
-    });
-});
+
+
 
 playBtn.addEventListener('click', () => {
     if (audio.paused) {
         audio.play();
         btnText.innerText = "PAUSE";
-        playBtn.style.borderColor = "#00ff00";
-    } else {
-        audio.pause();
-        btnText.innerText = "SEE YOU SPACE COWBOY...";
-        playBtn.style.borderColor = "#fff";
-    }
-});
+            playBtn.style.borderColor = "#00ff00";
+        } else {
+            audio.pause();
+            btnText.textContent = "PAUSE";
+            playBtn.style.borderColor = "#fff";
+        }
+    });
+
 
 // Обновляем время вместе с полоской прогресса
 audio.addEventListener('timeupdate', () => {
@@ -191,12 +209,13 @@ if ('mediaSession' in navigator) {
     // Эта часть отвечает за кнопки Play/Pause
     navigator.mediaSession.setActionHandler('play', () => { 
         audio.play(); 
-        btnText.innerText = "PAUSE";
+        btnText.textContent = "PAUSE";
     });
     navigator.mediaSession.setActionHandler('pause', () => { 
         audio.pause(); 
-        btnText.innerText = "SEE YOU SPACE COWBOY...";
+        btnText.textContent = "PAUSE";
     });
+
 
     // А эти две строчки активируют стрелочки "Вперед" и "Назад" в шторке
     navigator.mediaSession.setActionHandler('nexttrack', () => {
