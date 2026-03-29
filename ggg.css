@@ -114,6 +114,70 @@ padding-left: 10px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Легкое свечение */
 }
 
+
+@media screen and (max-width: 600px) {
+    body {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        min-height: 100vh !important;
+        height: auto !important; /* Убираем жесткую высоту 100vh */
+        padding: 20px 10px !important; /* Добавляем отступы сверху и снизу */
+        box-sizing: border-box;
+        overflow-y: auto !important;
+    }
+    
+    .container {
+        width: 95% !important; /* Контейнер теперь занимает почти всю ширину */
+        max-width: 400px !important;
+        display: flex;
+        flex-direction: column !important;
+        align-items: center;
+        padding: 25px 15px !important; /* Внутренние отступы */
+        gap: 15px !important;
+        height: auto !important; /* Контейнер растет вместе с текстом */
+        margin-bottom: 30px !important;
+    }
+    
+    .info-section {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Центрируем всё внутри секции */
+        text-align: center !important;
+    }
+
+    /* Уменьшаем шрифты, чтобы они не распирали квадрат */
+    h1 {
+        font-size: 24px !important;
+        margin: 5px 0 !important;
+    }
+    
+    p {
+        font-size: 14px !important;
+    }
+
+    .cover {
+        width: 80% !important; /* Уменьшаем обложку, чтобы влез плеер */
+        max-width: 250px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .tracklist {
+        width: 100% !important;
+        margin: 10px 0 !important;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 10px 0 !important;
+    }
+
+    .player-container {
+        width: 100% !important;
+        margin-top: 10px !important;
+        padding: 15px 10px !important;
+    }
+}
 .player-container {
 margin-top: 50px;
 }
@@ -348,4 +412,16 @@ z-index: 2;
 .fade-in {
     animation: fadeIn 0.6s ease-out;
 }
-
+@media screen and (min-width: 1024px) {
+    .container {
+        flex-direction: row !important; /* На ПК строго в ряд */
+        padding: 50px !important;
+        max-width: 1000px !important;
+        height: auto !important;
+    }
+    .info-section {
+        align-items: flex-start !important;
+        text-align: left !important;
+        margin-left: 40px;
+    }
+}
