@@ -182,7 +182,7 @@ z-index: 2;
     width: 0%;
     background: #fff;
     border-radius: 10px;
-    transition: width 0.2s linear;
+    
     pointer-events: none;
 }
 .time-container {
